@@ -1,31 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_app/models/gedung.dart';
 
-const List<String> books = [
-  // book name, index
-  'Harry Potter', // 0
-  'To Kill a Mockingbird', // 1
-  'The Hunger Games', // 2
-  'The Giver', // 3
-  'Brave New World', // 4
-  'Unwind', // 5
-  'World War Z', // 6
-  'The Lord of the Rings', // etc...
-  'The Hobbit',
-  'Moby Dick',
-  'War and Peace',
-  'Crime and Punishment',
-  'The Adventures of Huckleberry Finn',
-  'Catch-22',
-  'The Sound and the Fury',
-  'The Grapes of Wrath',
-  'Heart of Darkness',
-];
+part 'main.g.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox<String>('books');
+  // register adapter
+  Hive.registerAdapter<Gedung>(GedungAdapter());
+  await Hive.openBox<Gedung>('gedung');
   runApp(MyApp());
 }
 
@@ -35,20 +19,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Box<String> favoriteBooksBox;
+  late Box<Gedung> listGedung;
 
   @override
   void initState() {
     super.initState();
-    favoriteBooksBox = Hive.box('books');
-  }
-
-  void onFavoritePress(int index) {
-    if (favoriteBooksBox.containsKey(index)) {
-      favoriteBooksBox.delete(index);
-      return;
-    }
-    favoriteBooksBox.put(index, books[index]);
+    listGedung = Hive.box('gedung');
+    listGedung.put('gedung1', Gedung(kodeGedung: '123', namaGedung: 'gedung1'));
   }
 
   @override
@@ -61,17 +38,16 @@ class _MyAppState extends State<MyApp> {
           title: Text(appTitle),
         ),
         body: ValueListenableBuilder(
-          valueListenable: favoriteBooksBox.listenable(),
-          builder: (context, Box<String> box, _) {
+          valueListenable: listGedung.listenable(),
+          builder: (context, Box<Gedung> box, _) {
             return ListView.builder(
-              itemCount: books.length,
+              itemCount: box.length,
               itemBuilder: (context, listIndex) {
-                return ListTile(
-                  title: Text(books[listIndex]),
-                  trailing: IconButton(
-                    icon: getIcon(listIndex),
-                    onPressed: () => onFavoritePress(listIndex),
-                  ),
+                return Column(
+                  children: [
+                    Text(box.getAt(listIndex)?.kodeGedung.toString() ?? ''),
+                    Text(box.getAt(listIndex)?.namaGedung ?? ''),
+                  ],
                 );
               },
             );
@@ -79,13 +55,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-
-  Widget getIcon(int index) {
-    if (favoriteBooksBox.containsKey(index)) {
-      return Icon(Icons.favorite, color: Colors.red);
-    }
-    return Icon(Icons.favorite_border);
   }
 }
 

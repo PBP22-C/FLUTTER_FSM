@@ -1,5 +1,10 @@
+import 'package:hive/hive.dart';
+
+@HiveType(typeId: 0)
 class Gedung {
-  int kodeGedung;
+  @HiveField(0)
+  String kodeGedung;
+  @HiveField(1)
   String namaGedung;
 
   Gedung({required this.kodeGedung, required this.namaGedung});
