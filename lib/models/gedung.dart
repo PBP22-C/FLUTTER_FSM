@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+part 'gedung.g.dart';
 
 @HiveType(typeId: 0)
 class Gedung {
