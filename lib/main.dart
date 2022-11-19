@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_app/models/gedung.dart';
+import 'package:my_app/models/ruangan.dart';
 
-part 'main.g.dart';
+// part 'main.g.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   // register adapter
   Hive.registerAdapter<Gedung>(GedungAdapter());
   await Hive.openBox<Gedung>('gedung');
+
+  Hive.registerAdapter<Ruangan>(RuanganAdapter());
+  await Hive.openBox<Ruangan>('ruangan');
+
   runApp(MyApp());
 }
 
@@ -20,17 +26,27 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Box<Gedung> listGedung;
+  late Box<Ruangan> listRuangan;
 
   @override
   void initState() {
     super.initState();
     listGedung = Hive.box('gedung');
+    listRuangan = Hive.box('ruangan');
     listGedung.put('gedung1', Gedung(kodeGedung: '123', namaGedung: 'gedung1'));
+    listRuangan.put(
+        'A101',
+        Ruangan(
+            kodeRuangan: 'A101',
+            namaRuangan: 'Lab Komputer',
+            kapasitasRuangan: 80,
+            kodeGedung: '123'));
   }
 
   @override
   Widget build(BuildContext context) {
     final appTitle = 'Flutter Form Demo';
+
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
@@ -75,40 +91,48 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: const Icon(Icons.person),
-              hintText: 'Enter your name',
-              labelText: 'Name',
-            ),
+    return MaterialApp(
+      title: 'Flutter Form Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter Form Demo'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: const Icon(Icons.person),
+                  hintText: 'Enter your name',
+                  labelText: 'Name',
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: const Icon(Icons.phone),
+                  hintText: 'Enter a phone number',
+                  labelText: 'Phone',
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  icon: const Icon(Icons.calendar_today),
+                  hintText: 'Enter your date of birth',
+                  labelText: 'Dob',
+                ),
+              ),
+              new Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: new ElevatedButton(
+                    child: const Text('Submit'),
+                    onPressed: null,
+                  )),
+            ],
           ),
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: const Icon(Icons.phone),
-              hintText: 'Enter a phone number',
-              labelText: 'Phone',
-            ),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: const Icon(Icons.calendar_today),
-              hintText: 'Enter your date of birth',
-              labelText: 'Dob',
-            ),
-          ),
-          new Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: new ElevatedButton(
-                child: const Text('Submit'),
-                onPressed: null,
-              )),
-        ],
+        ),
       ),
     );
   }
