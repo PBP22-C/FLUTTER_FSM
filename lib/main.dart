@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:my_app/pages/add_gedung_form.dart';
+import 'package:my_app/pages/form_page.dart';
+import 'package:my_app/pages/home_page.dart';
 import 'package:my_app/models/gedung.dart';
 import 'package:my_app/models/ruangan.dart';
 
@@ -10,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   // register adapter
+  await Hive.openBox<Gedung>('gedung');
   Hive.registerAdapter<Gedung>(GedungAdapter());
   await Hive.openBox<Gedung>('gedung');
 
@@ -19,121 +23,44 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class AppFSM extends StatefulWidget {
+  const AppFSM({super.key});
+
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<AppFSM> createState() => _AppFSMState();
 }
 
-class _MyAppState extends State<MyApp> {
-  late Box<Gedung> listGedung;
-  late Box<Ruangan> listRuangan;
+class _AppFSMState extends State<AppFSM> {
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    listGedung = Hive.box('gedung');
-    listRuangan = Hive.box('ruangan');
-    listGedung.put('gedung1', Gedung(kodeGedung: '123', namaGedung: 'gedung1'));
-    listRuangan.put(
-        'A101',
-        Ruangan(
-            kodeRuangan: 'A101',
-            namaRuangan: 'Lab Komputer',
-            kapasitasRuangan: 80,
-            kodeGedung: '123'));
-  }
+  // final TextStyle optionStyle =
+  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  final List<Widget> _pages = [
+    const HomePage(),
+    const FormPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Flutter Form Demo';
-
+    final appTitle = 'Flutter FSM';
     return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: ValueListenableBuilder(
-          valueListenable: listGedung.listenable(),
-          builder: (context, Box<Gedung> box, _) {
-            return ListView.builder(
-              itemCount: box.length,
-              itemBuilder: (context, listIndex) {
-                return Column(
-                  children: [
-                    Text(box.getAt(listIndex)?.kodeGedung.toString() ?? ''),
-                    Text(box.getAt(listIndex)?.namaGedung ?? ''),
-                  ],
-                );
-              },
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-// Create a Form widget.
-class MyCustomForm extends StatefulWidget {
-  @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
-}
-
-// Create a corresponding State class. This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
-    return MaterialApp(
-      title: 'Flutter Form Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter Form Demo'),
-        ),
-        body: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: const Icon(Icons.person),
-                  hintText: 'Enter your name',
-                  labelText: 'Name',
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: const Icon(Icons.phone),
-                  hintText: 'Enter a phone number',
-                  labelText: 'Phone',
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: const Icon(Icons.calendar_today),
-                  hintText: 'Enter your date of birth',
-                  labelText: 'Dob',
-                ),
-              ),
-              new Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: new ElevatedButton(
-                    child: const Text('Submit'),
-                    onPressed: null,
-                  )),
-            ],
+        title: appTitle,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(appTitle),
           ),
-        ),
-      ),
-    );
+          body: _pages.elementAt(_selectedIndex),
+          bottomNavigationBar: BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.add), label: "Form")
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.green,
+            onTap: ((value) => setState(() {
+                  _selectedIndex = value;
+                })),
+          ),
+        ));
   }
 }
