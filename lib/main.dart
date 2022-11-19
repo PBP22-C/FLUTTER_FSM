@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:my_app/pages/add_gedung_form.dart';
-import 'package:my_app/pages/home.dart';
+import 'package:my_app/pages/form_page.dart';
+import 'package:my_app/pages/home_page.dart';
+import 'package:my_app/models/gedung.dart';
 
-void main() => runApp(const AppFSM());
+part 'main.g.dart';
+
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  // register adapter
+  await Hive.openBox<Gedung>('gedung');
+  Hive.registerAdapter<Gedung>(GedungAdapter());
+  runApp(AppFSM());
+}
 
 class AppFSM extends StatefulWidget {
   const AppFSM({super.key});
@@ -17,25 +30,18 @@ class _AppFSMState extends State<AppFSM> {
   // final TextStyle optionStyle =
   //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _pages = [
-    const Home(),
-    const AddGedungForm(),
+    const HomePage(),
+    const FormPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'App FSM Flutter';
-
-    void onTap(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-
-    return (MaterialApp(
+    final appTitle = 'Flutter FSM';
+    return MaterialApp(
         title: appTitle,
-        home: (Scaffold(
+        home: Scaffold(
           appBar: AppBar(
-            title: const Text(appTitle),
+            title: Text(appTitle),
           ),
           body: _pages.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
@@ -45,8 +51,10 @@ class _AppFSMState extends State<AppFSM> {
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.green,
-            onTap: onTap,
+            onTap: ((value) => setState(() {
+                  _selectedIndex = value;
+                })),
           ),
-        ))));
+        ));
   }
 }

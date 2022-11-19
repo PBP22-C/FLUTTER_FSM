@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/pages/add_gedung_form.dart';
 
 // Create a Form widget.
-class AddGedungForm extends StatefulWidget {
-  const AddGedungForm({super.key});
+class FormPage extends StatefulWidget {
+  const FormPage({super.key});
 
   @override
-  AddGedungFormState createState() {
-    return AddGedungFormState();
+  FormPageState createState() {
+    return FormPageState();
   }
 }
 
 // Create a corresponding State class. This class holds data related to the form.
-class AddGedungFormState extends State<AddGedungForm> {
+class FormPageState extends State<FormPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
