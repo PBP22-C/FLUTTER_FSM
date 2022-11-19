@@ -1,18 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/gedung.dart';
-
-// Move this somewhere else
-class Ruangan {
-  String kodeRuang;
-  String namaRuang;
-  int kapasitas;
-
-  Ruangan(
-      {required this.kodeRuang,
-      required this.namaRuang,
-      required this.kapasitas});
-}
+import '../models/ruangan.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,8 +25,16 @@ class _HomePageState extends State<HomePage> {
     ];
 
     _listRuang = [
-      Ruangan(kodeRuang: "nah", namaRuang: "loh", kapasitas: 10),
-      Ruangan(kodeRuang: "loh", namaRuang: "nah", kapasitas: 100000),
+      Ruangan(
+          kodeRuang: "nah",
+          namaRuang: "loh",
+          kapasitas: 10,
+          kodeGedung: "Test"),
+      Ruangan(
+          kodeRuang: "loh",
+          namaRuang: "nah",
+          kapasitas: 100000,
+          kodeGedung: "Test"),
     ];
     _selectedGedung = _listGedung[0];
   }

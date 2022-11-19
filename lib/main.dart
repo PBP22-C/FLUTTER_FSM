@@ -13,14 +13,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   // register adapter
-  await Hive.openBox<Gedung>('gedung');
   Hive.registerAdapter<Gedung>(GedungAdapter());
   await Hive.openBox<Gedung>('gedung');
 
-  Hive.registerAdapter<Ruangan>(RuanganAdapter());
-  await Hive.openBox<Ruangan>('ruangan');
+  // Hive.registerAdapter<Ruangan>(RuanganAdapter());
+  // await Hive.openBox<Ruangan>('ruangan');
 
-  runApp(MyApp());
+  runApp(AppFSM());
 }
 
 class AppFSM extends StatefulWidget {

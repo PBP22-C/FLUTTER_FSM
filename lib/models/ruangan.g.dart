@@ -17,9 +17,9 @@ class RuanganAdapter extends TypeAdapter<Ruangan> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Ruangan(
-      kodeRuangan: fields[0] as String,
-      namaRuangan: fields[1] as String,
-      kapasitasRuangan: fields[2] as int,
+      kodeRuang: fields[0] as String,
+      namaRuang: fields[1] as String,
+      kapasitas: fields[2] as int,
       kodeGedung: fields[3] as String,
     );
   }
@@ -29,11 +29,11 @@ class RuanganAdapter extends TypeAdapter<Ruangan> {
     writer
       ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.kodeRuangan)
+      ..write(obj.kodeRuang)
       ..writeByte(1)
-      ..write(obj.namaRuangan)
+      ..write(obj.namaRuang)
       ..writeByte(2)
-      ..write(obj.kapasitasRuangan)
+      ..write(obj.kapasitas)
       ..writeByte(3)
       ..write(obj.kodeGedung);
   }
