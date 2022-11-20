@@ -16,9 +16,11 @@ class FormGedungState extends State<FormGedung> {
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
 
-  // Mending diganti state
-  // final kodeGedungTextController = TextEditingController();
-  // final namaGedungTextController = TextEditingController();
+  String _kodeGedung = "";
+  String _namaGedung = "";
+
+  TextEditingController kodeGedungController =
+      TextEditingController(text: _kodeGedung);
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +32,59 @@ class FormGedungState extends State<FormGedung> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextFormField(
-              // controller: kodeGedungTextController,
+              controller: kodeGedungController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: 'Enter kode gedung',
                 labelText: 'Kode Gedung',
               ),
+              onChanged: (value) {
+                _kodeGedung = value;
+              },
+              validator: (value) {
+                value = value!.trim();
+                if (value == "") {
+                  return "Kode gedung tidak boleh kosong";
+                } else {
+                  return null;
+                }
+              },
             ),
             TextFormField(
-              // controller: namaGedungTextController,
+              controller: namaGedungController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.phone),
                 hintText: 'Enter nama gedung',
                 labelText: 'Nama Gedung',
               ),
+              onChanged: (value) {
+                _namaGedung = value;
+              },
+              validator: (value) {
+                value = value!.trim();
+                if (value == "") {
+                  return "Nama gedung tidak boleh kosong";
+                } else {
+                  return null;
+                }
+              },
             ),
             Container(
                 padding: const EdgeInsets.only(left: 150.0, top: 40.0),
                 child: ElevatedButton(
-                  onPressed: (() => print("HAHAHAHAHA")),
+                  onPressed: (() {
+                    final bool? isValid = _formKey.currentState?.validate();
+
+                    if (isValid == true) {
+                      // DB Stuff here
+
+                      _formKey.currentState?.reset();
+                      kodeGedungController.text = "";
+                      namaGedungController.text = "";
+                    } else {
+                      // print("Testtt");
+                    }
+                  }),
                   child: const Text('Submit'),
                 )),
           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:my_app/pages/add_gedung_form.dart';
+import 'package:my_app/pages/form_gedung.dart';
 import 'package:my_app/pages/form_page.dart';
 
 import 'package:my_app/pages/home_page.dart';

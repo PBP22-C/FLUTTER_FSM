@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     // Init DB here
     _listGedung = [
-      Gedung(kodeGedung: "All", namaGedung: "Semua Gedung"),
+      Gedung(kodeGedung: "", namaGedung: "Semua Gedung"),
       Gedung(kodeGedung: "Test", namaGedung: "Testing"),
     ];
 
@@ -84,8 +84,11 @@ class _HomePageState extends State<HomePage> {
             onPressed: (() {
               showModalBottomSheet(
                   context: context,
-                  builder: ((context) =>
-                      FormRuang(updatedRuangan: _listRuang[i])));
+                  builder: ((context) => BottomSheet(
+                        builder: (context) =>
+                            FormRuang(updatedRuangan: _listRuang[i]),
+                        onClosing: () {},
+                      )));
             }),
             child: Text("Ubah")),
         ElevatedButton(
