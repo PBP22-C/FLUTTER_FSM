@@ -35,11 +35,7 @@ class _HomePageState extends State<HomePage> {
   void _onGedungChanged(Gedung? value) {
     setState(() {
       _selectedGedung = value;
-      if (_selectedGedung?.kodeGedung != "") {
-        _ruanganList = _ruanganController.getRuanganByGedung(value!);
-      } else {
-        _ruanganList = _ruanganController.getAllRuangan();
-      }
+      _ruanganList = _ruanganController.getRuanganByGedung(value!);
     });
   }
 
