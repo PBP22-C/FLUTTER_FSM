@@ -43,73 +43,108 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box<Gedung>>(
       valueListenable: _gedungController.box.listenable(),
-      builder: (context, value, child) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const Text("Pilih Gedung"),
-          DropdownButton<Gedung>(
-            value: _selectedGedung,
-            items: _gedungList
-                .map(
-                  (gedung) => DropdownMenuItem<Gedung>(
-                    value: gedung,
-                    child: Text(gedung.namaGedung),
-                  ),
-                )
-                .toList(),
-            onChanged: _onGedungChanged,
-          ),
-          const Text("Daftar Ruangan"),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _ruanganList.length,
-              itemBuilder: <Widget>(BuildContext context, int index) {
-                return _itemRuangan(context, index);
-              },
+      builder: (context, value, child) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            const SizedBox(height: 16),
+            const Text("Pilih Gedung"),
+            const SizedBox(height: 8),
+            DropdownButton<Gedung>(
+              value: _selectedGedung,
+              items: _gedungList
+                  .map(
+                    (gedung) => DropdownMenuItem<Gedung>(
+                      value: gedung,
+                      child: Text(gedung.namaGedung),
+                    ),
+                  )
+                  .toList(),
+              onChanged: _onGedungChanged,
             ),
-          )
-        ],
+            const SizedBox(height: 24),
+            const Text("Daftar Ruangan"),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.separated(
+                itemCount: _ruanganList.length,
+                itemBuilder: <Widget>(BuildContext context, int index) {
+                  return _itemRuangan(context, index);
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _itemRuangan(BuildContext context, int i) {
     Ruangan ruangan = _ruanganList[i];
-    return Table(
-      children: [
-        TableRow(children: [
-          Text(ruangan.namaRuang),
-          Text(ruangan.kapasitas.toString())
-        ]),
-        TableRow(children: [Text(ruangan.kodeRuang), const Text('')]),
-        TableRow(
-          children: [
-            ElevatedButton(
-                onPressed: (() async {
-                  final result = await showModalBottomSheet(
-                    context: context,
-                    builder: (context) => FormRuang(updatedRuangan: ruangan),
-                  );
-                  if (result != null) {
-                    setState(() {
-                      _ruanganList = _ruanganController
-                          .getRuanganByGedung(_selectedGedung!);
-                    });
-                  }
-                }),
-                child: const Text("Ubah")),
-            ElevatedButton(
-              onPressed: (() {
-                showDialog(
-                  context: context,
-                  builder: (context) => _deleteAlert(ruangan),
-                );
-              }),
-              child: const Text("Hapus"),
-            )
-          ],
-        )
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.green.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Table(
+        children: [
+          TableRow(
+            children: [
+              Text(ruangan.namaRuang),
+              Row(
+                children: [
+                  const Icon(Icons.people, color: Colors.grey),
+                  Text(ruangan.kapasitas.toString()),
+                ],
+              )
+            ],
+          ),
+          TableRow(
+            children: [
+              Text(ruangan.kodeRuang),
+              const Text(''),
+            ],
+          ),
+          TableRow(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ElevatedButton(
+                  onPressed: (() async {
+                    final result = await showModalBottomSheet(
+                      context: context,
+                      builder: (context) => FormRuang(updatedRuangan: ruangan),
+                    );
+                    if (result != null) {
+                      setState(() {
+                        _ruanganList = _ruanganController
+                            .getRuanganByGedung(_selectedGedung!);
+                      });
+                    }
+                  }),
+                  child: const Text("Ubah"),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ElevatedButton(
+                  onPressed: (() {
+                    showDialog(
+                      context: context,
+                      builder: (context) => _deleteAlert(ruangan),
+                    );
+                  }),
+                  child: const Text("Hapus"),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -133,6 +168,7 @@ class _HomePageState extends State<HomePage> {
             });
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                backgroundColor: Colors.green,
                 content: Text(
                     "Ruangan ${deletedRuangan.kodeRuang} berhasil dihapus"),
               ),

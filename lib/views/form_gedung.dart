@@ -39,6 +39,7 @@ class FormGedungState extends State<FormGedung> {
         _namaGedungTextController.clear();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Colors.green,
             content: Text("Gedung berhasil ditambahkan"),
           ),
         );
@@ -46,6 +47,7 @@ class FormGedungState extends State<FormGedung> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Colors.red,
           content: Text(e.toString()),
         ),
       );
@@ -61,12 +63,12 @@ class FormGedungState extends State<FormGedung> {
         children: <Widget>[
           Container(
             // padding 16dp
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 5),
             child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0E0),
-                border: Border.all(color: Color(0xFFE0E0E0)),
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: TextFormField(
@@ -87,12 +89,12 @@ class FormGedungState extends State<FormGedung> {
           ),
           Container(
             // padding 16dp
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0E0),
-                border: Border.all(color: Color(0xFFE0E0E0)),
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: TextFormField(
@@ -115,7 +117,7 @@ class FormGedungState extends State<FormGedung> {
             child: Container(
               height: 70,
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
               child: ElevatedButton(
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

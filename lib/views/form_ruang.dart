@@ -74,6 +74,9 @@ class _FormRuangState extends State<FormRuang> {
         _kodeRuangController.clear();
         _namaRuangController.clear();
         _kapasitasController.clear();
+        setState(() {
+          _gedung = null;
+        });
         if (widget.updatedRuangan != null) {
           Navigator.pop(context, true);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -119,16 +122,16 @@ class _FormRuangState extends State<FormRuang> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          Container(
-            // padding 16dp
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: [
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0E0),
-                border: Border.all(color: Color(0xFFE0E0E0)),
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: TextFormField(
@@ -146,15 +149,12 @@ class _FormRuangState extends State<FormRuang> {
                 },
               ),
             ),
-          ),
-          Container(
-            // padding 16dp
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0E0),
-                border: Border.all(color: Color(0xFFE0E0E0)),
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: TextFormField(
@@ -172,15 +172,12 @@ class _FormRuangState extends State<FormRuang> {
                 },
               ),
             ),
-          ),
-          Container(
-            // padding 16dp
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0E0),
-                border: Border.all(color: Color(0xFFE0E0E0)),
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: TextFormField(
@@ -200,44 +197,58 @@ class _FormRuangState extends State<FormRuang> {
                 },
               ),
             ),
-          ),
-          const Text("Gedung"),
-          DropdownButtonFormField<Gedung>(
-            value: _gedung ?? _gedungList.first,
-            items: _gedungList.map((Gedung e) {
-              return DropdownMenuItem<Gedung>(
-                value: e,
-                child: Text(e.namaGedung),
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(
-                () {
-                  _gedung = value!;
-                },
-              );
-            },
-          ),
-          Center(
-            child: Container(
-              height: 70,
-              width: double.infinity,
-              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-                onPressed: onSubmit,
-                child: const Text(
-                  'Submit',
-                  style: TextStyle(fontSize: 20),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE0E0E0),
+                border: Border.all(color: const Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Gedung"),
+                  DropdownButtonFormField<Gedung>(
+                    value: _gedung,
+                    items: _gedungList.map((Gedung e) {
+                      return DropdownMenuItem<Gedung>(
+                        value: e,
+                        child: Text(e.namaGedung),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(
+                        () {
+                          _gedung = value!;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: Container(
+                height: 70,
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ))),
+                  onPressed: onSubmit,
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
