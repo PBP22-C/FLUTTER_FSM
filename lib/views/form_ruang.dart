@@ -202,8 +202,8 @@ class _FormRuangState extends State<FormRuang> {
             ),
           ),
           const Text("Gedung"),
-          DropdownButton<Gedung>(
-            value: _gedung,
+          DropdownButtonFormField<Gedung>(
+            value: _gedung ?? _gedungList.first,
             items: _gedungList.map((Gedung e) {
               return DropdownMenuItem<Gedung>(
                 value: e,

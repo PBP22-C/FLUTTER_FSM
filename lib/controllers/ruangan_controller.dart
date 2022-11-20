@@ -20,7 +20,7 @@ class RuanganController {
 
   // Get Ruangan by Gedung
   List<Ruangan> getRuanganByGedung(Gedung gedung) {
-    if (gedung.kodeGedung == 'All') {
+    if (gedung.kodeGedung == '') {
       return ruanganController.values.toList();
     }
     return ruanganController.values

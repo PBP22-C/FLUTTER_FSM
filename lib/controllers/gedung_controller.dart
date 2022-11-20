@@ -26,14 +26,4 @@ class GedungController {
       throw Exception("Kode Gedung sudah ada");
     }
   }
-
-  // Update Gedung
-  void updateGedung(Gedung gedung) async {
-    await gedungController.put(gedung.kodeGedung, gedung);
-  }
-
-  // Delete Gedung
-  void deleteGedung(String kodeGedung) async {
-    await gedungController.delete(kodeGedung);
-  }
 }
