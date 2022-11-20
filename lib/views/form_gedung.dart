@@ -59,39 +59,75 @@ class FormGedungState extends State<FormGedung> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            controller: _kodeGedungTextController,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'Enter kode gedung',
-              labelText: 'Kode Gedung',
+          Container(
+            // padding 16dp
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+                border: Border.all(color: Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: TextFormField(
+                controller: _kodeGedungTextController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.qr_code),
+                  hintText: 'Enter kode gedung',
+                  labelText: 'Kode Gedung',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Kode gedung tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Kode gedung tidak boleh kosong';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _namaGedungTextController,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.phone),
-              hintText: 'Enter nama gedung',
-              labelText: 'Nama Gedung',
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Nama gedung tidak boleh kosong';
-              }
-              return null;
-            },
           ),
           Container(
-            padding: const EdgeInsets.only(left: 150.0, top: 40.0),
-            child: ElevatedButton(
-              onPressed: onSubmit,
-              child: const Text('Submit'),
+            // padding 16dp
+            padding: EdgeInsets.all(16),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+                border: Border.all(color: Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: TextFormField(
+                controller: _namaGedungTextController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.apartment),
+                  hintText: 'Enter nama gedung',
+                  labelText: 'Nama Gedung',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama gedung tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              height: 70,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+                onPressed: onSubmit,
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ),
           ),
         ],

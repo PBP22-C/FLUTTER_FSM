@@ -43,6 +43,9 @@ class _AppFSMState extends State<AppFSM> {
     const appTitle = 'Flutter FSM';
     return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text(appTitle),

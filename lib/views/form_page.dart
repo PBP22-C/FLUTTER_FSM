@@ -30,16 +30,21 @@ class FormPageState extends State<FormPage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Container(
-            color: Colors.green,
             height: 50,
             child: const TabBar(
               tabs: [
                 Tab(
-                  text: "Tambah Gedung",
+                  child: Text(
+                    "Tambah Gedung",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 Tab(
-                  text: "Tambah Ruangan",
-                )
+                  child: Text(
+                    "Tambah Ruangan",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
               ],
             ),
           ),

@@ -121,50 +121,85 @@ class _FormRuangState extends State<FormRuang> {
       key: _formKey,
       child: Column(
         children: [
-          const Text("Ubah Data"),
-          TextFormField(
-            controller: _kodeRuangController,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'Enter kode ruang',
-              labelText: 'Kode Ruang',
+          Container(
+            // padding 16dp
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+                border: Border.all(color: Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: TextFormField(
+                controller: _kodeRuangController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.qr_code),
+                  hintText: 'Enter kode ruang',
+                  labelText: 'Kode Ruang',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Kode ruang tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Kode ruang tidak boleh kosong';
-              }
-              return null;
-            },
           ),
-          TextFormField(
-            controller: _namaRuangController,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'Enter nama ruang',
-              labelText: 'Nama Ruang',
+          Container(
+            // padding 16dp
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+                border: Border.all(color: Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: TextFormField(
+                controller: _namaRuangController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.door_front_door),
+                  hintText: 'Enter nama ruang',
+                  labelText: 'Nama Ruang',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama ruang tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Nama ruang tidak boleh kosong';
-              }
-              return null;
-            },
           ),
-          TextFormField(
-            controller: _kapasitasController,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'Enter kapasitas',
-              labelText: 'Kapasitas',
+          Container(
+            // padding 16dp
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 5),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0E0E0),
+                border: Border.all(color: Color(0xFFE0E0E0)),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: TextFormField(
+                controller: _kapasitasController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Enter kapasitas',
+                  labelText: 'Kapasitas',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Kapasitas tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Kapasitas tidak boleh kosong';
-              }
-              return null;
-            },
           ),
           const Text("Gedung"),
           DropdownButton<Gedung>(
@@ -183,11 +218,23 @@ class _FormRuangState extends State<FormRuang> {
               );
             },
           ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: onSubmit,
-              child: const Text('Submit'),
+          Center(
+            child: Container(
+              height: 70,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+                onPressed: onSubmit,
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ),
           ),
         ],
