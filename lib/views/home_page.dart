@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
     // Default value
     _gedungList = _gedungController.getAllGedung();
     _gedungList.insert(
-        0, (const Gedung(kodeGedung: "", namaGedung: "Semua Gedung")));
-    _selectedGedung = _gedungList[0];
+        0, const Gedung(kodeGedung: '', namaGedung: 'Semua Gedung'));
+    _selectedGedung = _gedungList.first;
     _ruanganList = _ruanganController.getAllRuangan();
   }
 
