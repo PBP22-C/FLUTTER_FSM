@@ -3,19 +3,18 @@ import '../models/gedung.dart';
 // import '../models/ruangan.dart';
 import '../models/ruangan_not_hive.dart';
 
-class FormUpdateRuang extends StatefulWidget {
-  final List<Gedung> listGedung;
-  final Ruangan updatedRuangan;
+class FormRuang extends StatefulWidget {
+  final Ruangan? updatedRuangan;
 
-  const FormUpdateRuang(
-      {super.key, required this.listGedung, required this.updatedRuangan});
+  const FormRuang({super.key, this.updatedRuangan});
 
   @override
-  State<FormUpdateRuang> createState() => _FormUpdateRuangState();
+  State<FormRuang> createState() => _FormRuangState();
 }
 
-class _FormUpdateRuangState extends State<FormUpdateRuang> {
+class _FormRuangState extends State<FormRuang> {
   final _formKey = GlobalKey<FormState>();
+  List<Gedung> _list_gedung = [];
   String _kodeRuang = "";
   String _namaRuang = "";
   int _kapasitas = 0;
@@ -24,10 +23,11 @@ class _FormUpdateRuangState extends State<FormUpdateRuang> {
   @override
   void initState() {
     super.initState();
-    _kodeRuang = widget.updatedRuangan.kodeRuang;
-    _namaRuang = widget.updatedRuangan.namaRuang;
-    _kapasitas = widget.updatedRuangan.kapasitas;
-    _gedung = widget.updatedRuangan.gedung;
+    _kodeRuang = widget.updatedRuangan?.kodeRuang ?? "";
+    _namaRuang = widget.updatedRuangan?.namaRuang ?? "";
+    _kapasitas = widget.updatedRuangan?.kapasitas ?? 0;
+    _gedung = widget.updatedRuangan?.gedung ??
+        Gedung(kodeGedung: "All", namaGedung: "Semua Gedung");
   }
 
   @override
@@ -69,7 +69,7 @@ class _FormUpdateRuangState extends State<FormUpdateRuang> {
               ),
               Text("Gedung"),
               DropdownButton<Gedung>(
-                  items: widget.listGedung.map((Gedung e) {
+                  items: _list_gedung.map((Gedung e) {
                     return DropdownMenuItem<Gedung>(
                         value: e, child: Text(e.namaGedung));
                   }).toList(),

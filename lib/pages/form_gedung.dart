@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 // Create a Form widget.
-class FormAddRuang extends StatefulWidget {
-  const FormAddRuang({super.key});
+class FormGedung extends StatefulWidget {
+  const FormGedung({super.key});
 
   @override
-  FormAddRuangState createState() {
-    return FormAddRuangState();
+  FormGedungState createState() {
+    return FormGedungState();
   }
 }
 
 // Create a corresponding State class. This class holds data related to the form.
-class FormAddRuangState extends State<FormAddRuang> {
+class FormGedungState extends State<FormGedung> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
@@ -33,16 +33,16 @@ class FormAddRuangState extends State<FormAddRuang> {
               // controller: kodeGedungTextController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
-                hintText: 'Enter kode ruang',
-                labelText: 'Kode Ruang',
+                hintText: 'Enter kode gedung',
+                labelText: 'Kode Gedung',
               ),
             ),
             TextFormField(
               // controller: namaGedungTextController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.phone),
-                hintText: 'Enter nama ruang',
-                labelText: 'Nama Ruang',
+                hintText: 'Enter nama gedung',
+                labelText: 'Nama Gedung',
               ),
             ),
             Container(

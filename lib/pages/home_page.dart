@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_app/pages/form_update_ruang.dart';
+import 'package:my_app/pages/form_ruang.dart';
 
 import '../models/gedung.dart';
 // import '../models/ruangan.dart';
@@ -84,16 +84,46 @@ class _HomePageState extends State<HomePage> {
             onPressed: (() {
               showModalBottomSheet(
                   context: context,
-                  builder: ((context) => FormUpdateRuang(
-                      listGedung: _listGedung, updatedRuangan: _listRuang[i])));
+                  builder: ((context) =>
+                      FormRuang(updatedRuangan: _listRuang[i])));
             }),
             child: Text("Ubah")),
         ElevatedButton(
             onPressed: (() {
-              print("Delete!");
+              showDialog(
+                  context: context,
+                  builder: (context) => _deleteAlert(_listRuang[i]));
             }),
             child: Text("Hapus"))
       ])
     ]);
+  }
+
+  Widget _deleteAlert(Ruangan deletedRuangan) {
+    return AlertDialog(
+      title: const Text('Hapus Data'),
+      content: Text(
+          "Apakah anda ingin menghapus ruangan ${deletedRuangan.kodeRuang}"),
+      actions: <Widget>[
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.labelLarge,
+          ),
+          child: const Text('Ya'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.labelLarge,
+          ),
+          child: const Text('Tidak'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
   }
 }

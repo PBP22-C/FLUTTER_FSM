@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/form_add_gedung.dart';
-import 'package:my_app/pages/form_add_ruang.dart';
+import 'package:my_app/pages/form_gedung.dart';
+
+import 'form_ruang.dart';
 
 // Create a Form widget.
 class FormPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class FormPage extends StatefulWidget {
 class FormPageState extends State<FormPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
-  final List<Widget> _forms = [FormAddGedung(), FormAddRuang()];
+  final List<Widget> _forms = [FormGedung(), FormRuang()];
 
   @override
   Widget build(BuildContext context) {
