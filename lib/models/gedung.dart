@@ -1,14 +1,15 @@
 import 'package:hive/hive.dart';
+
 part 'gedung.g.dart';
 
 @HiveType(typeId: 0)
 class Gedung {
   @HiveField(0)
-  String kodeGedung;
+  final String kodeGedung;
   @HiveField(1)
-  String namaGedung;
+  final String namaGedung;
 
-  Gedung({required this.kodeGedung, required this.namaGedung});
+  const Gedung({required this.kodeGedung, required this.namaGedung});
 
   factory Gedung.fromJson(Map<String, dynamic> json) {
     return Gedung(
@@ -18,9 +19,9 @@ class Gedung {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['kodeGedung'] = this.kodeGedung;
-    data['namaGedung'] = this.namaGedung;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['kodeGedung'] = kodeGedung;
+    data['namaGedung'] = namaGedung;
     return data;
   }
 }

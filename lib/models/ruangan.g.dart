@@ -20,7 +20,7 @@ class RuanganAdapter extends TypeAdapter<Ruangan> {
       kodeRuang: fields[0] as String,
       namaRuang: fields[1] as String,
       kapasitas: fields[2] as int,
-      kodeGedung: fields[3] as String,
+      gedung: fields[3] as Gedung,
     );
   }
 
@@ -35,7 +35,7 @@ class RuanganAdapter extends TypeAdapter<Ruangan> {
       ..writeByte(2)
       ..write(obj.kapasitas)
       ..writeByte(3)
-      ..write(obj.kodeGedung);
+      ..write(obj.gedung);
   }
 
   @override

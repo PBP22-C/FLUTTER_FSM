@@ -24,8 +24,7 @@ class _HomePageState extends State<HomePage> {
     _listGedung = Hive.box('gedung');
     _listRuang = Hive.box('ruangan');
 
-    _listGedung.put(
-        'ALL', Gedung(kodeGedung: "All", namaGedung: "Semua Gedung"));
+    _listGedung.put('ALL', Gedung(kodeGedung: "", namaGedung: "Semua Gedung"));
     _listGedung.put(
         'Test', Gedung(kodeGedung: "Test", namaGedung: "Test Gedung"));
 
@@ -35,14 +34,16 @@ class _HomePageState extends State<HomePage> {
             kodeRuang: 'nah',
             namaRuang: 'loh',
             kapasitas: 10,
-            kodeGedung: 'Test'));
+            gedung: _listGedung.getAt(1) ??
+                const Gedung(kodeGedung: "", namaGedung: "Semua Gedung")));
     _listRuang.put(
         'loh',
         Ruangan(
             kodeRuang: "loh",
             namaRuang: "nah",
             kapasitas: 100000,
-            kodeGedung: "Test"));
+            gedung: _listGedung.getAt(1) ??
+                const Gedung(kodeGedung: "", namaGedung: "Semua Gedung")));
 
     _selectedGedung = _listGedung.get("ALL");
   }
