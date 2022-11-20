@@ -2,20 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../models/gedung.dart';
-
-// Move this somewhere else
-class Ruangan {
-  String kodeRuang;
-  String namaRuang;
-  int kapasitas;
-  Gedung gedung;
-
-  Ruangan(
-      {required this.kodeRuang,
-      required this.namaRuang,
-      required this.kapasitas,
-      required this.gedung});
-}
+import '../models/ruangan.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,15 +30,14 @@ class _HomePageState extends State<HomePage> {
           kodeRuang: "nah",
           namaRuang: "loh",
           kapasitas: 10,
-          gedung: _listGedung[1]),
+          kodeGedung: "Test"),
       Ruangan(
           kodeRuang: "loh",
           namaRuang: "nah",
           kapasitas: 100000,
-          gedung: _listGedung[1]),
+          kodeGedung: "Test"),
     ];
 
-    print(_listRuang[0].gedung);
     _selectedGedung = _listGedung[0];
   }
 
@@ -126,16 +112,15 @@ class _FormUpdateRuangState extends State<FormUpdateRuang> {
   String _kodeRuang = "";
   String _namaRuang = "";
   int _kapasitas = 0;
-  late Gedung _gedung;
+  late String _gedung;
 
   @override
   void initState() {
     super.initState();
-    print(widget.updatedRuangan.gedung);
     _kodeRuang = widget.updatedRuangan.kodeRuang;
     _namaRuang = widget.updatedRuangan.namaRuang;
     _kapasitas = widget.updatedRuangan.kapasitas;
-    _gedung = widget.updatedRuangan.gedung;
+    _gedung = widget.updatedRuangan.kodeGedung;
   }
 
   @override
@@ -182,11 +167,11 @@ class _FormUpdateRuangState extends State<FormUpdateRuang> {
                         value: e, child: Text(e.namaGedung));
                   }).toList(),
                   onChanged: ((value) {
-                    setState(() {
-                      _gedung = value!;
-                    });
-                  }),
-                  value: _gedung),
+                    // setState(() {
+                    //   _gedung = value!;
+                    // });
+                  })),
+              // value: _gedung),
             ],
           )),
       onClosing: () {

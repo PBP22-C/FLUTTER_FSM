@@ -3,17 +3,25 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:my_app/pages/add_gedung_form.dart';
 import 'package:my_app/pages/form_page.dart';
-import 'package:my_app/pages/home_page.dart';
-import 'package:my_app/models/gedung.dart';
 
-part 'main.g.dart';
+// import 'package:my_app/pages/home_page.dart';
+import 'package:my_app/pages/home_page hive.dart';
+
+import 'package:my_app/models/gedung.dart';
+import 'package:my_app/models/ruangan.dart';
+
+// part 'main.g.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   // register adapter
-  await Hive.openBox<Gedung>('gedung');
   Hive.registerAdapter<Gedung>(GedungAdapter());
+  await Hive.openBox<Gedung>('gedung');
+
+  Hive.registerAdapter<Ruangan>(RuanganAdapter());
+  await Hive.openBox<Ruangan>('ruangan');
+
   runApp(AppFSM());
 }
 
