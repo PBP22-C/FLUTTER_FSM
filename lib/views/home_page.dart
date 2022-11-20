@@ -25,7 +25,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _gedungList = _gedungController.getAllGedung();
-    _selectedGedung = _gedungList[0];
+    _gedungList
+        .add(const Gedung(kodeGedung: 'All', namaGedung: 'Semua Gedung'));
+    _selectedGedung = _gedungList.first;
     _ruanganList = _ruanganController.getAllRuangan();
   }
 
