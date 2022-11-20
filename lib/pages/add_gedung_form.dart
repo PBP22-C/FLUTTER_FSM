@@ -15,8 +15,10 @@ class AddGedungFormState extends State<AddGedungForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
-  final kodeGedungTextController = TextEditingController();
-  final namaGedungTextController = TextEditingController();
+
+  // Mending diganti state
+  // final kodeGedungTextController = TextEditingController();
+  // final namaGedungTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class AddGedungFormState extends State<AddGedungForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextFormField(
-              controller: kodeGedungTextController,
+              // controller: kodeGedungTextController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: 'Enter kode gedung',
@@ -36,7 +38,7 @@ class AddGedungFormState extends State<AddGedungForm> {
               ),
             ),
             TextFormField(
-              controller: namaGedungTextController,
+              // controller: namaGedungTextController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.phone),
                 hintText: 'Enter nama gedung',
@@ -46,8 +48,7 @@ class AddGedungFormState extends State<AddGedungForm> {
             Container(
                 padding: const EdgeInsets.only(left: 150.0, top: 40.0),
                 child: ElevatedButton(
-                  onPressed: (() => print(kodeGedungTextController.text +
-                      namaGedungTextController.text)),
+                  onPressed: (() => print("HAHAHAHAHA")),
                   child: const Text('Submit'),
                 )),
           ],
