@@ -1,16 +1,8 @@
-# my_app
+## **Explore Cross Platform with Flutter - FSM Room Capacity**
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Anggota
+1. Alvin Triseptia Mairis		24060120130044
+2. Farrel Andhika Rizky Putra	24060120130071
+3. Liem, Roy Marcelino		24060120130059
+4. M. Khoirul Ma'arif		24060120130116
+5. Adriel Silaban			24060120140095
