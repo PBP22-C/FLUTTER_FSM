@@ -35,7 +35,7 @@ class _FormRuangState extends State<FormRuang> {
         widget.updatedRuangan?.kapasitas.toString() ?? '';
 
     _gedungList = _gedungController.getAllGedung();
-    _gedungList.removeWhere((element) => element.kodeGedung == 'All');
+    _gedungList.removeWhere((element) => element.kodeGedung == '');
     if (widget.updatedRuangan?.gedung != null) {
       _gedung = _gedungList
           .where((element) =>
